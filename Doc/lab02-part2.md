@@ -15,8 +15,8 @@ and preserve traces itself. MCP can make that loop more integrated.
 
 ## Harness additions
 
-- `.github/workflows/copilot-setup-steps.yml` installs locked project dependencies,
-  pinned Playwright tooling without changing the lockfile, and the browser revision
+- `.github/workflows/copilot-setup-steps.yml` installs project dependencies without
+  rewriting the starter lockfile, pinned Playwright tooling, and the browser revision
   required by each Playwright package before the coding agent starts.
 - `.github/workflows/playwright-e2e.yml` verifies a CLI-controlled browser, runs the
   checkout suite and existing checks, and uploads snapshots, screenshots, traces,
@@ -51,6 +51,13 @@ terminated. IT confirmed npm will not be unblocked. No Playwright browser intera
 or Playwright trace was produced locally, and this document does not claim otherwise.
 The official CLI has no standalone binary distribution, so bypassing npm would mean
 using an unsupported package source or violating the network policy.
+
+The first GitHub-hosted run reached npm but found that the starter `package-lock.json`
+was already incomplete (`@emnapi/runtime` and `@emnapi/core` were absent), so `npm ci`
+stopped before Playwright setup. The harness now uses
+`npm install --package-lock=false` in ephemeral runners, preserving the repository
+lockfile while allowing npm to resolve the starter project's missing transitive
+metadata.
 
 Source review still exposed an important behavior for browser verification: discounted
 products use the discounted amount in the order total, while each checkout line shows
