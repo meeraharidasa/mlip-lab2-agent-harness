@@ -116,6 +116,25 @@ guidance predicts. The improvement was a fast, correctly classified environment
 failure instead of repeated browser or locator debugging; completing the browser run
 still requires an allowed coding-agent runner to execute the committed setup steps.
 
+The final rerun used the updated Skill and harness on the allowed GitHub runner:
+
+- [Playwright E2E run 33907242647](https://github.com/meeraharidasa/mlip-lab2-agent-harness/actions/runs/33907242647)
+  completed successfully in 1 minute 55 seconds.
+- Playwright CLI opened the live app, clicked the first `Add to Cart` control, observed
+  the updated page, checked browser warnings, and saved a trace.
+- All four Chromium checkout tests passed in 16.6 seconds.
+- The existing Vitest test passed, ESLint passed, and the production build completed.
+- The 2.3 MB
+  [playwright-checkout-evidence artifact](https://github.com/meeraharidasa/mlip-lab2-agent-harness/actions/runs/33907242647/artifacts/9950001187)
+  contains pre/post interaction snapshots, the cart screenshot, console output, CLI
+  trace/network/resources, Playwright HTML report, and test result metadata.
+
+The final trace evidence was also downloaded outside the repository to
+`files/playwright-run-33907242647/` in this Copilot session's persistent artifact
+directory. Browser installation dominated runtime; caching `~/.cache/ms-playwright`
+would speed repeated hosted runs, at the cost of additional cache configuration and
+storage for two package-specific browser revisions.
+
 ## Commands
 
 Once Playwright is available in an allowed environment:
