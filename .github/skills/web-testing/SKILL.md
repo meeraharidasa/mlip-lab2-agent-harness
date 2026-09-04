@@ -16,6 +16,9 @@ application merely to satisfy a test.
 ## Readiness
 
 1. Read the app's scripts and relevant routes before starting it.
+   Honor the project's supported Node version; if npm itself fails while resolving a
+   legacy or incomplete lockfile, reproduce with the lowest supported current Node
+   release before changing dependency metadata.
 2. Run `npx playwright-cli --help` and `npx playwright --version` to prove both
    the exploration CLI and test runner are installed.
    Install the browser expected by each pinned tool (`playwright install chromium`

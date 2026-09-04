@@ -59,6 +59,11 @@ stopped before Playwright setup. The harness now uses
 lockfile while allowing npm to resolve the starter project's missing transitive
 metadata.
 
+Node 22's bundled npm then failed internally with
+`Cannot read properties of null (reading 'edgesOut')`. Because Playwright CLI supports
+Node 20 and newer, the hosted harness pins Node 20/npm 10 rather than modifying the
+starter dependency graph to accommodate an npm resolver regression.
+
 Source review still exposed an important behavior for browser verification: discounted
 products use the discounted amount in the order total, while each checkout line shows
 the undiscounted extended price. For two Wireless Headphones and one Bluetooth Speaker,
