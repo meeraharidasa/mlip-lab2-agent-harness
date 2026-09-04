@@ -60,6 +60,21 @@ Give the agent this task:
 
 Keep the generated tests and results for comparison with Part 2.
 
+### Part 1 baseline evidence
+
+- Existing test run before changes: `npm test` — 1 test passed.
+- Generated cart tests: `src/test/App.test.jsx` — covers adding a discounted
+  product, increasing and decreasing its quantity, removing it, and checking
+  the item-count and price summaries after each relevant state change.
+- Final validation: `npm test` and `npm run lint`.
+- Observation: React Testing Library exercises the cart through its rendered
+  controls and routes, but this baseline does not verify behavior in a real
+  browser. Discount arithmetic required an explicit expected-price decision.
+- Environment limitation: the configured package proxy lacked the locked
+  `@csstools/css-syntax-patches-for-csstree@1.1.10` tarball. Dependencies were
+  installed without manifest changes by temporarily selecting compatible
+  version `1.1.9`, the newest version available from that proxy.
+
 ## Part 2: Enhance the Agent Harness
 
 ### 1. Add browser tooling
