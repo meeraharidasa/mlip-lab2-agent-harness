@@ -64,6 +64,16 @@ Node 22's bundled npm then failed internally with
 Node 20 and newer, the hosted harness pins Node 20/npm 10 rather than modifying the
 starter dependency graph to accommodate an npm resolver regression.
 
+The next hosted run successfully installed both Playwright tools and browser revisions,
+started the application, opened `http://127.0.0.1:4173/` with Playwright CLI, and
+captured a real accessibility snapshot, screenshot, console log, and CLI trace. The
+snapshot confirmed accessible product names, prices, and `Add to Cart` controls. The
+first E2E invocation then stopped before test collection because the CLI verification
+server already owned port 4173 while the test runner was configured to reject an
+existing CI server. This was a harness orchestration defect, not an application defect.
+The config now reuses the verified server, and the CLI evidence step performs a real
+cart state change before the E2E suite.
+
 Source review still exposed an important behavior for browser verification: discounted
 products use the discounted amount in the order total, while each checkout line shows
 the undiscounted extended price. For two Wireless Headphones and one Bluetooth Speaker,
@@ -80,6 +90,7 @@ Skill's readiness and triage guidance:
 - classify dependency/network failures as environment failures;
 - report blocked installation exactly and never bypass organization policy;
 - do not claim a browser or trace was produced when setup failed.
+- coordinate server ownership when CLI exploration and Playwright Test run in one job.
 
 The test-design review added reusable guidance to assert intermediate transitions,
 durable browser state, independent price calculations, guarded-route behavior, and

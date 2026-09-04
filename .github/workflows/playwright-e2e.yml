@@ -61,7 +61,10 @@ jobs:
           npx playwright-cli -s=checkout-ci open http://127.0.0.1:4173
           npx playwright-cli -s=checkout-ci tracing-start
           npx playwright-cli -s=checkout-ci snapshot --filename=checkout-home.yml
-          npx playwright-cli -s=checkout-ci screenshot --filename=checkout-home.png
+          npx playwright-cli -s=checkout-ci click e58
+          npx playwright-cli -s=checkout-ci snapshot --filename=checkout-cart.yml
+          npx playwright-cli -s=checkout-ci screenshot --filename=checkout-cart.png
+          npx playwright-cli -s=checkout-ci console warning
           npx playwright-cli -s=checkout-ci tracing-stop
 
       - name: Run checkout end-to-end tests
@@ -79,9 +82,11 @@ jobs:
         with:
           name: playwright-checkout-evidence
           if-no-files-found: warn
+          include-hidden-files: true
           path: |
             checkout-home.yml
-            checkout-home.png
+            checkout-cart.yml
+            checkout-cart.png
             .playwright-cli/
             playwright-report/
             test-results/

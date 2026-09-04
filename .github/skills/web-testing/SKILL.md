@@ -25,6 +25,8 @@ application merely to satisfy a test.
    and `playwright-cli install-browser`) because their browser revisions can differ.
 3. Start the app on a fixed host and port. Confirm the URL responds before opening
    it in Playwright.
+   When CLI exploration and Playwright Test share that server, configure the test
+   runner to reuse the existing server instead of competing for the same port.
 4. Use a named CLI session, such as
    `npx playwright-cli -s=web-test open http://127.0.0.1:4173`.
 
@@ -98,6 +100,10 @@ Classify a failure before editing:
 Review the Playwright error, screenshot, and trace together. Reproduce the smallest
 failing path with CLI snapshots. Fix test defects, document application defects,
 and never modify product code solely to make a test green.
+
+Treat harness orchestration as part of failure triage: a port-ownership failure before
+test collection is not an application failure. Coordinate one server across CLI and
+test phases, then rerun before changing locators or assertions.
 
 ## Verification
 
