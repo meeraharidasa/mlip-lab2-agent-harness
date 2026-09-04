@@ -98,6 +98,13 @@ intentional timers. Human judgment was still required to select representative
 validation boundaries, distinguish the line-price/total discrepancy from a test
 arithmetic error, and decide not to modify the application.
 
+After the server-reuse update, the CLI added a Wireless Headphones item and captured
+the resulting cart state. All four Chromium checkout E2E tests passed in the hosted
+workflow. The later unit-test step failed because Vitest's broad default discovery
+also imported `e2e/checkout.spec.js`. This did not invalidate the Playwright result;
+it exposed a multi-runner boundary issue. The final harness explicitly limits Vitest
+to specifications under `src/`, a lesson now recorded in the Skill.
+
 Following that Skill update, the focused workflow was rerun:
 
 ```text

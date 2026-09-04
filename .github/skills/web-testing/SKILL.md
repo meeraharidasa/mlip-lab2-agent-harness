@@ -88,6 +88,8 @@ exercise distinct rules and meaningful user consequences.
   broken transition.
 - Assert both rendered state and durable browser state when completion mutates both.
 - Account for intentional timers with explicit, narrow timeouts rather than sleeps.
+- When adding a second test runner, give each runner explicit test directories or
+  include patterns so unit-test discovery does not execute E2E specifications.
 
 ## Failure Triage
 
@@ -104,6 +106,9 @@ and never modify product code solely to make a test green.
 Treat harness orchestration as part of failure triage: a port-ownership failure before
 test collection is not an application failure. Coordinate one server across CLI and
 test phases, then rerun before changing locators or assertions.
+
+If E2E passes but a later unit-test step imports the Playwright spec, fix runner
+discovery boundaries rather than changing the passing scenario.
 
 ## Verification
 
